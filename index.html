@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cabeçalho com título e campo de adicionar tarefa -->
+    <header>
+        <h1>📋 Meu Kanban</h1>
+        <p class="subtitle">Organize suas tarefas de forma simples</p>
+        <button id="open-modal-btn">+ Nova Tarefa</button>
+    </header>
+
+    <!-- Modal para criar/editar tarefa -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Nova Tarefa</h3>
+                <button id="close-modal" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <label for="input-title">Título *</label>
+                <input type="text" id="input-title" placeholder="Ex: Implementar login" maxlength="80">
+                
+                <label for="input-desc">Descrição <span class="hint">(use **texto** para negrito)</span></label>
+                <textarea id="input-desc" placeholder="Detalhes da tarefa..." rows="4" maxlength="500"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-btn" class="btn-secondary">Cancelar</button>
+                <button id="save-btn" class="btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container principal do Kanban com 3 colunas -->
+    <main class="kanban-container">
+        <!-- Coluna: A Fazer -->
+        <section class="column" data-status="todo">
+            <div class="column-header">
+                <span class="column-icon">📝</span>
+                <h2>A Fazer</h2>
+                <span class="card-count" id="count-todo">0</span>
+            </div>
+            <div class="dropzone" id="todo"></div>
+        </section>
+
+        <!-- Coluna: Fazendo -->
+        <section class="column" data-status="doing">
+            <div class="column-header">
+                <span class="column-icon">⚡</span>
+                <h2>Fazendo</h2>
+                <span class="card-count" id="count-doing">0</span>
+            </div>
+            <div class="dropzone" id="doing"></div>
+        </section>
+
+        <!-- Coluna: Concluído -->
+        <section class="column" data-status="done">
+            <div class="column-header">
+                <span class="column-icon">✅</span>
+                <h2>Concluído</h2>
+                <span class="card-count" id="count-done">0</span>
+            </div>
+            <div class="dropzone" id="done"></div>
+        </section>
+    </main>
+
+    <!-- Rodapé simples -->
+    <footer>
+        <p>Clique duplo para editar • Arraste para mover • Use **texto** para negrito</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
