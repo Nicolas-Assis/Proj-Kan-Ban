@@ -1,10 +1,4 @@
-/* ===========================================
-   KANBAN BOARD - JAVASCRIPT
-   Gerenciamento de estado e Drag & Drop
-   Vanilla JS - Sem frameworks
-   =========================================== */
 
-// ===== SELEÇÃO DE ELEMENTOS DO DOM =====
 const openModalBtn = document.getElementById('open-modal-btn');
 const modalOverlay = document.getElementById('modal-overlay');
 const closeModalBtn = document.getElementById('close-modal');
@@ -15,29 +9,18 @@ const inputDesc = document.getElementById('input-desc');
 const modalTitle = document.getElementById('modal-title');
 const dropzones = document.querySelectorAll('.dropzone');
 
-// Card sendo editado (null = novo card)
 let editingCardId = null;
 
-// ===== ESTADO DA APLICAÇÃO =====
 let kanbanState = {
     todo: [],
     doing: [],
     done: []
 };
 
-// ===== FUNÇÕES DE PERSISTÊNCIA (localStorage) =====
-
-/**
- * Salva o estado atual no localStorage
- */
 function saveState() {
     localStorage.setItem('kanbanState', JSON.stringify(kanbanState));
 }
 
-/**
- * Carrega o estado salvo do localStorage
- * Migra dados antigos se necessário
- */
 function loadState() {
     const saved = localStorage.getItem('kanbanState');
     if (saved) {
@@ -59,7 +42,6 @@ function loadState() {
     }
 }
 
-// ===== FUNÇÕES DE FORMATAÇÃO =====
 
 /**
  * Converte **texto** em <strong>texto</strong>
@@ -68,16 +50,13 @@ function loadState() {
  */
 function parseMarkdown(text) {
     if (!text) return '';
-    // Escapa HTML para segurança
     const escaped = text
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
-    // Converte **texto** em negrito
     return escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
 
-// ===== FUNÇÕES DO MODAL =====
 
 /**
  * Abre o modal para criar ou editar tarefa
@@ -117,17 +96,14 @@ function saveTask() {
     }
     
     if (editingCardId) {
-        // Atualiza tarefa existente
         updateTask(editingCardId, title, desc);
     } else {
-        // Cria nova tarefa
         addTask(title, desc);
     }
     
     closeModal();
 }
 
-// ===== FUNÇÕES DE CRIAÇÃO DE ELEMENTOS =====
 
 /**
  * Cria um novo card de tarefa
@@ -140,7 +116,6 @@ function createCard(task) {
     card.draggable = true;
     card.dataset.id = task.id;
 
-    // Header com título e botão deletar
     const header = document.createElement('div');
     header.classList.add('card-header');
 
@@ -156,7 +131,6 @@ function createCard(task) {
     header.appendChild(titleEl);
     header.appendChild(deleteBtn);
 
-    // Descrição (se existir)
     const descEl = document.createElement('div');
     descEl.classList.add('card-desc');
     descEl.innerHTML = parseMarkdown(task.desc);
@@ -164,19 +138,16 @@ function createCard(task) {
     card.appendChild(header);
     card.appendChild(descEl);
 
-    // Evento: Deletar card
     deleteBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         deleteCard(card);
     });
 
-    // Evento: Editar com duplo clique
     card.addEventListener('dblclick', () => {
         const taskData = findCardInState(task.id);
         if (taskData) openModal(taskData);
     });
 
-    // Eventos de Drag (Arrastar)
     card.addEventListener('dragstart', () => {
         card.classList.add('dragging');
     });
@@ -189,19 +160,16 @@ function createCard(task) {
 }
 
 /**
- * Gera um ID único para cada card
- * @returns {string} - ID único
+ * @returns {string} 
  */
 function generateId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
-// ===== FUNÇÕES DE MANIPULAÇÃO DO ESTADO =====
 
 /**
- * Adiciona uma nova tarefa ao estado e ao DOM
- * @param {string} title - Título da tarefa
- * @param {string} desc - Descrição da tarefa
+ * @param {string} title 
+ * @param {string} desc 
  */
 function addTask(title, desc) {
     const id = generateId();
@@ -217,10 +185,9 @@ function addTask(title, desc) {
 }
 
 /**
- * Atualiza uma tarefa existente
- * @param {string} id - ID do card
- * @param {string} title - Novo título
- * @param {string} desc - Nova descrição
+ * @param {string} id 
+ * @param {string} title 
+ * @param {string} desc 
  */
 function updateTask(id, title, desc) {
     ['todo', 'doing', 'done'].forEach(column => {
@@ -236,8 +203,7 @@ function updateTask(id, title, desc) {
 }
 
 /**
- * Deleta um card do DOM e do estado
- * @param {HTMLElement} card - Elemento do card
+ * @param {HTMLElement} card 
  */
 function deleteCard(card) {
     const id = card.dataset.id;
@@ -257,9 +223,8 @@ function deleteCard(card) {
 }
 
 /**
- * Encontra um card no estado pelo ID
- * @param {string} id - ID do card
- * @returns {Object|null} - Objeto da tarefa ou null
+ * @param {string} id 
+ * @returns {Object|null} 
  */
 function findCardInState(id) {
     for (const column of ['todo', 'doing', 'done']) {
@@ -270,9 +235,8 @@ function findCardInState(id) {
 }
 
 /**
- * Move um card entre colunas no estado
- * @param {string} cardId - ID do card
- * @param {string} targetColumn - Coluna de destino
+ * @param {string} cardId 
+ * @param {string} targetColumn 
  */
 function moveCardInState(cardId, targetColumn) {
     let task = null;
@@ -290,20 +254,15 @@ function moveCardInState(cardId, targetColumn) {
     }
 }
 
-// ===== FUNÇÕES DE INTERFACE =====
 
-/**
- * Atualiza os contadores de cards em cada coluna
- */
+
 function updateCounts() {
     document.getElementById('count-todo').textContent = kanbanState.todo.length;
     document.getElementById('count-doing').textContent = kanbanState.doing.length;
     document.getElementById('count-done').textContent = kanbanState.done.length;
 }
 
-/**
- * Renderiza todos os cards a partir do estado
- */
+
 function renderCards() {
     dropzones.forEach(zone => zone.innerHTML = '');
     
@@ -318,19 +277,16 @@ function renderCards() {
     updateCounts();
 }
 
-// ===== EVENTOS DO MODAL =====
 
 openModalBtn.addEventListener('click', () => openModal());
 closeModalBtn.addEventListener('click', closeModal);
 cancelBtn.addEventListener('click', closeModal);
 saveBtn.addEventListener('click', saveTask);
 
-// Fechar modal clicando fora
 modalOverlay.addEventListener('click', (e) => {
     if (e.target === modalOverlay) closeModal();
 });
 
-// Salvar com Ctrl+Enter ou fechar com ESC
 document.addEventListener('keydown', (e) => {
     if (modalOverlay.classList.contains('hidden')) return;
     
@@ -338,7 +294,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && e.ctrlKey) saveTask();
 });
 
-// ===== LÓGICA DE DRAG AND DROP =====
 
 dropzones.forEach(zone => {
     zone.addEventListener('dragover', (e) => {
@@ -370,7 +325,6 @@ dropzones.forEach(zone => {
     });
 });
 
-// ===== INICIALIZAÇÃO =====
 
 function init() {
     loadState();

@@ -1,9 +1,4 @@
-/* ===========================================
-   KANBAN BOARD - ESTILOS CSS
-   Design responsivo com Flexbox e Grid
-   =========================================== */
 
-/* ===== VARIÁVEIS DE CORES E TAMANHOS ===== */
 :root {
     --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --column-todo: #fff4e6;
@@ -18,7 +13,6 @@
     --transition: all 0.3s ease;
 }
 
-/* ===== RESET E ESTILOS BASE ===== */
 * {
     margin: 0;
     padding: 0;
@@ -33,7 +27,6 @@ body {
     color: var(--text-primary);
 }
 
-/* ===== CABEÇALHO ===== */
 header {
     text-align: center;
     margin-bottom: 30px;
@@ -54,7 +47,6 @@ header h1 {
     margin-bottom: 20px;
 }
 
-/* ===== BOTÃO DE NOVA TAREFA ===== */
 #open-modal-btn {
     padding: 12px 28px;
     background: white;
@@ -215,7 +207,6 @@ header h1 {
     background: #5a6fd6;
 }
 
-/* ===== LAYOUT DO KANBAN COM CSS GRID ===== */
 .kanban-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -225,7 +216,6 @@ header h1 {
     align-items: start;
 }
 
-/* ===== COLUNAS DO KANBAN ===== */
 .column {
     background: rgba(255, 255, 255, 0.95);
     border-radius: var(--border-radius);
@@ -235,7 +225,6 @@ header h1 {
     transition: var(--transition);
 }
 
-/* Cores específicas de cada coluna */
 .column[data-status="todo"] {
     border-top: 4px solid #fd7e14;
 }
@@ -248,7 +237,6 @@ header h1 {
     border-top: 4px solid #40c057;
 }
 
-/* ===== CABEÇALHO DA COLUNA ===== */
 .column-header {
     display: flex;
     align-items: center;
@@ -278,7 +266,6 @@ header h1 {
     font-weight: 600;
 }
 
-/* ===== ÁREA DE DROP (DROPZONE) ===== */
 .dropzone {
     min-height: 380px;
     padding: 8px 0;
@@ -291,7 +278,6 @@ header h1 {
     border: 2px dashed #667eea;
 }
 
-/* ===== CARDS DE TAREFA ===== */
 .card {
     background: var(--card-bg);
     border-radius: 8px;
@@ -319,7 +305,6 @@ header h1 {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Cores do card baseadas na coluna */
 #todo .card { border-left-color: #fd7e14; }
 #doing .card { border-left-color: #339af0; }
 #done .card { border-left-color: #40c057; }
@@ -329,7 +314,6 @@ header h1 {
     color: var(--text-secondary);
 }
 
-/* ===== ESTRUTURA INTERNA DO CARD ===== */
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -358,7 +342,6 @@ header h1 {
     display: none;
 }
 
-/* Negrito no texto */
 .card-desc strong {
     color: var(--text-primary);
     font-weight: 600;
@@ -386,7 +369,6 @@ header h1 {
     background: #fff5f5;
 }
 
-/* ===== RODAPÉ ===== */
 footer {
     text-align: center;
     margin-top: 30px;
@@ -398,7 +380,6 @@ footer p {
     font-size: 0.9rem;
 }
 
-/* ===== RESPONSIVIDADE PARA MOBILE ===== */
 @media (max-width: 768px) {
     body {
         padding: 15px;
@@ -433,7 +414,6 @@ footer p {
     }
 }
 
-/* ===== ANIMAÇÃO DE ENTRADA DOS CARDS ===== */
 @keyframes fadeIn {
     from {
         opacity: 0;

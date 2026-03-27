@@ -7,14 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Cabeçalho com título e campo de adicionar tarefa -->
     <header>
         <h1>📋 Meu Kanban</h1>
         <p class="subtitle">Organize suas tarefas de forma simples</p>
         <button id="open-modal-btn">+ Nova Tarefa</button>
     </header>
 
-    <!-- Modal para criar/editar tarefa -->
     <div id="modal-overlay" class="modal-overlay hidden">
         <div class="modal">
             <div class="modal-header">
@@ -35,9 +33,7 @@
         </div>
     </div>
 
-    <!-- Container principal do Kanban com 3 colunas -->
     <main class="kanban-container">
-        <!-- Coluna: A Fazer -->
         <section class="column" data-status="todo">
             <div class="column-header">
                 <span class="column-icon">📝</span>
@@ -47,7 +43,6 @@
             <div class="dropzone" id="todo"></div>
         </section>
 
-        <!-- Coluna: Fazendo -->
         <section class="column" data-status="doing">
             <div class="column-header">
                 <span class="column-icon">⚡</span>
@@ -57,7 +52,6 @@
             <div class="dropzone" id="doing"></div>
         </section>
 
-        <!-- Coluna: Concluído -->
         <section class="column" data-status="done">
             <div class="column-header">
                 <span class="column-icon">✅</span>
@@ -68,7 +62,6 @@
         </section>
     </main>
 
-    <!-- Rodapé simples -->
     <footer>
         <p>Clique duplo para editar • Arraste para mover • Use **texto** para negrito</p>
     </footer>
