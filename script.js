@@ -26,7 +26,6 @@ function loadState() {
     if (saved) {
         kanbanState = JSON.parse(saved);
         
-        // Migra dados antigos (formato com 'text' para 'title/desc')
         let needsMigration = false;
         ['todo', 'doing', 'done'].forEach(column => {
             kanbanState[column] = kanbanState[column].map(task => {
@@ -44,9 +43,8 @@ function loadState() {
 
 
 /**
- * Converte **texto** em <strong>texto</strong>
- * @param {string} text - Texto com markdown
- * @returns {string} - HTML formatado
+ * @param {string} text 
+ * @returns {string}
  */
 function parseMarkdown(text) {
     if (!text) return '';
@@ -59,8 +57,7 @@ function parseMarkdown(text) {
 
 
 /**
- * Abre o modal para criar ou editar tarefa
- * @param {Object|null} task - Tarefa para editar (null = nova)
+ * @param {Object|null} task
  */
 function openModal(task = null) {
     editingCardId = task ? task.id : null;
@@ -71,9 +68,6 @@ function openModal(task = null) {
     inputTitle.focus();
 }
 
-/**
- * Fecha o modal e limpa os campos
- */
 function closeModal() {
     modalOverlay.classList.add('hidden');
     inputTitle.value = '';
@@ -81,9 +75,6 @@ function closeModal() {
     editingCardId = null;
 }
 
-/**
- * Salva a tarefa (nova ou editada)
- */
 function saveTask() {
     const title = inputTitle.value.trim();
     const desc = inputDesc.value.trim();
@@ -106,9 +97,8 @@ function saveTask() {
 
 
 /**
- * Cria um novo card de tarefa
- * @param {Object} task - Objeto com id, title, desc
- * @returns {HTMLElement} - Elemento do card
+ * @param {Object} task 
+ * @returns {HTMLElement}
  */
 function createCard(task) {
     const card = document.createElement('div');
